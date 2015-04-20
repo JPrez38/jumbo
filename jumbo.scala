@@ -23,6 +23,7 @@ object jumbo {
 	def solve_jumbo(input_string: String,dictionary: HashMap[StringBuilder,String]) : ListBuffer[String] = {
 		var jumbo_list = new ListBuffer[String]()
 		var perms = new ListBuffer[String]()
+		/* code works by generating all permutations, then finding the combinations */
 		permute_string(input_string.toCharArray,0)
 		perms.foreach(x => combine_strings(x,new StringBuilder(),0))
 
@@ -58,14 +59,14 @@ object jumbo {
 	} 
 
 	def build_dictionary(file: String) : HashMap[StringBuilder,String] = {
-		var dictionary = HashMap[StringBuilder, String]()
+		var dictionary = HashMap[StringBuilder, String]() //Use hash table for O(1) lookup
 		Source.fromFile(dictionary_file).getLines().foreach { 
 			line=>
 				if (line.length != 1) { /* single characters should not count as words */
 					dictionary += (new StringBuilder(line) -> "")
 				}
 		}
-		println("Dictionary size equals " + dictionary.size)
+		println("Dictionary size equals " + dictionary.size) // from the mac words dictionary
 		dictionary
 	}
 }
